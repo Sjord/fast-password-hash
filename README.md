@@ -17,3 +17,4 @@ Times for 300,000 iterations:
 | original        | 0.933 s |
 | naive C         | 0.733 s |
 | reuse HMAC ctx  | 0.587 s |
+| fast `bin2hex`  | 0.180 s |
