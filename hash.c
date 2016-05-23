@@ -31,9 +31,10 @@ void do_hash()
     HMAC_CTX_init(&copy);
 
     HMAC_Init_ex(&orig, salt, strlen(salt), EVP_sha1(), NULL);
+    HMAC_CTX_copy(&copy, &orig);
 
     for (int iter = 0; iter < 300000; iter++) {
-        HMAC_CTX_copy(&copy, &orig);
+        EVP_MD_CTX_copy(&copy.md_ctx, &orig.md_ctx);
         HMAC_Update(&copy, mdString, strlen(mdString));
         HMAC_Final(&copy, digest, &digest_len);
 
