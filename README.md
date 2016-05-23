@@ -15,4 +15,5 @@ Times for 300,000 iterations:
 | implementation  | time    |
 |-----------------|---------|
 | original        | 0.933 s |
-
+| naive C         | 0.733 s |
+| reuse HMAC ctx  | 0.587 s |
