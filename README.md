@@ -19,3 +19,4 @@ Times for 300,000 iterations:
 | reuse HMAC ctx  | 0.587 s |
 | fast `bin2hex`  | 0.180 s |
 | lean copy       | 0.124 s |
+| own HMAC        | 0.102 s |

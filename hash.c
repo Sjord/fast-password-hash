@@ -23,6 +23,7 @@ static inline void sha1_cpy(SHA_CTX *restrict out, const SHA_CTX *restrict in)
   out->h2 = in->h2;
   out->h3 = in->h3;
   out->h4 = in->h4;
+  out->Nl = in->Nl;
 }
 
 void do_hash()
@@ -47,9 +48,14 @@ void do_hash()
         o_key_pad[i] = 0x5c ^ padded_salt[i];
     }
 
-    SHA_CTX work_inner, work_outer;
+    SHA_CTX orig_inner, orig_outer, work_inner, work_outer;
+    SHA1_Init(&orig_inner);
+    SHA1_Init(&orig_outer);
     SHA1_Init(&work_inner);
     SHA1_Init(&work_outer);
+
+    SHA1_Update(&orig_outer, o_key_pad, 64);
+    SHA1_Update(&orig_inner, i_key_pad, 64);
 
     strcpy(mdString, pass);
 
@@ -58,8 +64,8 @@ void do_hash()
         SHA1_Init(&work_inner);
         SHA1_Init(&work_outer);
 
-        SHA1_Update(&work_outer, o_key_pad, 64);
-        SHA1_Update(&work_inner, i_key_pad, 64);
+        sha1_cpy(&work_inner, &orig_inner);
+        sha1_cpy(&work_outer, &orig_outer);
  
         SHA1_Update(&work_inner, mdString, strlen(mdString));
         SHA1_Final(digest, &work_inner);
