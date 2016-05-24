@@ -60,10 +60,6 @@ void do_hash()
     strcpy(mdString, pass);
 
     for (int iter = 0; iter < 300000; iter++) {
-
-        SHA1_Init(&work_inner);
-        SHA1_Init(&work_outer);
-
         sha1_cpy(&work_inner, &orig_inner);
         sha1_cpy(&work_outer, &orig_outer);
  
